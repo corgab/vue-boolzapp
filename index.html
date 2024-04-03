@@ -60,11 +60,11 @@
 						<i class="fa-solid fa-magnifying-glass"></i>
 					</div>
 					<ul class="contacts">
-						<li class="contact toast" v-for="contact in contacts">
+						<li class="contact toast" v-for="(contact,i) in contacts" @click=chatAttiva(i)>
 							<div class="contact__info toast__content">
-								<img class="contact__image" :src="contacts.avatar" alt="non va" />
+								<img class="contact__image" :src="contact.avatar" alt="non va" />
 								<div class="d-none d-lg-block">
-									<h3 class="contact__name">{{contacts.name}}</h3>
+									<h3 class="contact__name">{{contact.name}}</h3>
 									<p class="last-access">Lorem ipsum dolor sit.</p>
 								</div>
 							</div>
@@ -123,11 +123,11 @@
 					</ul>
 				</header>
 				<main class="chat-wrapper">
-					<div class="toolbar user-toolbar">
+					<div class="toolbar user-toolbar" v-if="chatAttiva !== null">
 						<div class="contact__info toast__content">
-							<img class="contact__image" src="./img/avatar_1.jpg" alt="" />
+							<img class="contact__image" src="contacts[chatAttiva].avatar" alt="" />
 							<div>
-								<h3 class="contact__name">Michele</h3>
+								<h3 class="contact__name">//</h3>
 								<p class="last-access">Lorem ipsum dolor sit.</p>
 							</div>
 						</div>
