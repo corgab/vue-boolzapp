@@ -198,9 +198,10 @@ createApp({
                 this.contacts[i].messages.push(risposta)
             }, 1000);
         },
-        // contattiFiltrati() {
-        //     return this.contacts.filter(contatto => contatto.toLowerCase().includes(this.searchText.toLowerCase()))
-        // }
+        //da sistemare
+        contattiFiltrati() {
+
+        }
     }
 }).mount('#app')
 
