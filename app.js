@@ -3,7 +3,9 @@ const { createApp } = Vue
 createApp({
     data() {
         return {
-            chatAttivata: null,
+            inputMessage: "",
+            searchText: "",
+            currentChat: 0,
             contacts: [
                 {
                     name: 'Michele',
@@ -171,11 +173,35 @@ createApp({
     },
     methods: {
         chatAttiva(i) {
-            this.chatAttivata = i
+            this.currentChat = i
+            console.log(i)
         },
-        // currentIndex() {
-        //     return currentContact = i
-        // } 
+        sendMessage(i) {
+            let newMessage = 
+            {
+                message: this.inputMessage,
+                status: 'sent'
+            }
+            this.contacts[i].messages.push(newMessage)
+            this.inputMessage= "";
+            
+            //risposta automatica
+            const rispostaText = 'ok';
+
+            //risposta 
+            const risposta = {
+                message: rispostaText,
+                status: 'received'
+            }
+
+            setTimeout(() => {
+                this.contacts[i].messages.push(risposta)
+            }, 1000);
+        },
+        // contattiFiltrati() {
+        //     return this.contacts.filter(contatto => contatto.toLowerCase().includes(this.searchText.toLowerCase()))
+        // }
     }
 }).mount('#app')
+
 

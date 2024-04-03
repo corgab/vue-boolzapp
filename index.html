@@ -56,11 +56,12 @@
 							type="text"
 							name="search"
 							placeholder="Cerca o inizia una nuova chat"
+							<!-- v-model="searchText" -->
 						/>
 						<i class="fa-solid fa-magnifying-glass"></i>
 					</div>
 					<ul class="contacts">
-						<li class="contact toast" v-for="(contact,i) in contacts" @click=chatAttiva(i)>
+						<li class="contact toast" v-for="(contact,i) in contacts" @click=chatAttiva(i) >
 							<div class="contact__info toast__content">
 								<img class="contact__image" :src="contact.avatar" alt="non va" />
 								<div class="d-none d-lg-block">
@@ -70,64 +71,14 @@
 							</div>
 							<span class="time d-none d-lg-block"> 16:15 </span>
 						</li>
-						<!-- <li class="contact toast">
-							<div class="contact__info toast__content">
-								<img class="contact__image" src="./img/avatar_5.jpg" alt="" />
-								<div class="d-none d-lg-block">
-									<h3 class="contact__name">Pippo</h3>
-									<p class="last-access">Lorem ipsum dolor sit.</p>
-								</div>
-							</div>
-							<span class="time d-none d-lg-block"> 16:15 </span>
-						</li>
-						<li class="contact toast">
-							<div class="contact__info toast__content">
-								<img class="contact__image" src="./img/avatar_2.jpg" alt="" />
-								<div class="d-none d-lg-block">
-									<h3 class="contact__name">Gianni</h3>
-									<p class="last-access">Lorem ipsum dolor sit.</p>
-								</div>
-							</div>
-							<span class="time d-none d-lg-block"> 16:15 </span>
-						</li>
-						<li class="contact toast">
-							<div class="contact__info toast__content">
-								<img class="contact__image" src="./img/avatar_3.jpg" alt="" />
-								<div class="d-none d-lg-block">
-									<h3 class="contact__name">Sara</h3>
-									<p class="last-access">Lorem ipsum dolor sit.</p>
-								</div>
-							</div>
-							<span class="time d-none d-lg-block"> 16:15 </span>
-						</li>
-						<li class="contact toast">
-							<div class="contact__info toast__content">
-								<img class="contact__image" src="./img/avatar_5.jpg" alt="" />
-								<div class="d-none d-lg-block">
-									<h3 class="contact__name">Pippo</h3>
-									<p class="last-access">Lorem ipsum dolor sit.</p>
-								</div>
-							</div>
-							<span class="time d-none d-lg-block"> 16:15 </span>
-						</li>
-						<li class="contact toast">
-							<div class="contact__info toast__content">
-								<img class="contact__image" src="./img/avatar_2.jpg" alt="" />
-								<div class="d-none d-lg-block">
-									<h3 class="contact__name">Gianni</h3>
-									<p class="last-access">Lorem ipsum dolor sit.</p>
-								</div>
-							</div>
-							<span class="time d-none d-lg-block"> 16:15 </span>
-						</li> -->
 					</ul>
 				</header>
 				<main class="chat-wrapper">
-					<div class="toolbar user-toolbar" v-if="chatAttiva !== null">
+					<div class="toolbar user-toolbar">
 						<div class="contact__info toast__content">
-							<img class="contact__image" src="contacts[chatAttiva].avatar" alt="" />
+							<img class="contact__image" :src="contacts[currentChat].avatar" alt="" />
 							<div>
-								<h3 class="contact__name">//</h3>
+								<h3 class="contact__name">{{contacts[currentChat].name}}</h3>
 								<p class="last-access">Lorem ipsum dolor sit.</p>
 							</div>
 						</div>
@@ -145,35 +96,11 @@
 					</div>
 
 					<ul class="chat">
-						<li class="message sent">
-							Messaggio bello 1
-							<span class="message__time">15:03</span>
-						</li>
-						<li class="message sent">
-							Messaggio 2
-							<span class="message__time">15:03</span>
-						</li>
-						<li class="message received">
-							Messaggio 3
-							<span class="message__time">15:03</span>
-						</li>
-
-						<li class="message received">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Excepturi eius dicta doloribus magni cumque? Quae minima quam nisi
-							atque voluptatem.
-							<span class="message__time">15:03</span>
-						</li>
-						<li class="message received">
-							Messaggio 4 <span class="message__time">15:03</span>
-						</li>
-
-						<li class="message sent">
-							Messaggio 2
+						<li  class="message" :class="messageSingolo.status" v-for="messageSingolo in contacts[currentChat].messages">
+							{{messageSingolo.message}}
 							<span class="message__time">15:03</span>
 						</li>
 					</ul>
-
 					<div class="toolbar chat-toolbar">
 						<span class="icon">
 							<i class="fa-regular fa-face-smile"></i>
@@ -182,6 +109,8 @@
 							class="chat__input"
 							type="text"
 							placeholder="Scrivi un messaggio"
+							v-model="inputMessage"
+							@keyup.enter="sendMessage(currentChat)"
 						/>
 						<span class="icon">
 							<i class="fa-solid fa-microphone"></i>
