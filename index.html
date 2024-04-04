@@ -61,7 +61,8 @@
 						<i class="fa-solid fa-magnifying-glass"></i>
 					</div>
 					<ul class="contacts">
-						<li class="contact toast" v-for="(contact,i) in contacts" @click=chatAttiva(i) >
+						<!-- contattiFiltrati(currentChat) == false ? 'd-none':'' -->
+						<li class="contact toast" v-for="(contact,i) in contacts" :class="[ i === currentChat ? 'active':'', contact.name.toLowerCase().includes(searchText.toLowerCase()) ? '':'d-none']" @click=chatAttiva(i)>
 							<div class="contact__info toast__content">
 								<img class="contact__image" :src="contact.avatar" alt="non va" />
 								<div class="d-none d-lg-block">
@@ -98,7 +99,9 @@
 					<ul class="chat">
 						<li  class="message" :class="messageSingolo.status" v-for="messageSingolo in contacts[currentChat].messages">
 							{{messageSingolo.message}}
-							<span class="message__time">15:03</span>
+							<span class="message__time">
+								{{messageSingolo.date.slice(11,16)}}
+							</span>
 						</li>
 					</ul>
 					<div class="toolbar chat-toolbar">

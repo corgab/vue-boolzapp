@@ -4,6 +4,7 @@ createApp({
     data() {
         return {
             inputMessage: "",
+            barraRicerca: "",
             searchText: "",
             currentChat: 0,
             contacts: [
@@ -198,10 +199,6 @@ createApp({
                 this.contacts[i].messages.push(risposta)
             }, 1000);
         },
-        //da sistemare
-        contattiFiltrati() {
-
-        }
     }
 }).mount('#app')
 

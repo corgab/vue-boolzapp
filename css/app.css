@@ -263,6 +263,10 @@ textarea {
 	overflow-y: scroll;
 }
 
+.contact.active {
+	background-color: #dadada;
+}
+
 .contact:not(:last-child) {
 	border-bottom: 1px solid #d6d6d6;
 }
